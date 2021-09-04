@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Name="this"
+        ResizeMode="CanMinimize"
         Title="DatabaseManager" Height="350" Width="600"
         DataContext="{x:Reference Name=this}">
     <Window.Background>

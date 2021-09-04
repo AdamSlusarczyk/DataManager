@@ -1,0 +1,58 @@
+﻿<Page x:Class="DatabaseManager.View.Pages.DataPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DatabaseManager.View.Pages"
+      mc:Ignorable="d" 
+      Height="650" Width="900"
+      Title="DataPage" Background="White">
+
+    <Grid Margin="20,20,20,20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Select table:    "/>
+            <ComboBox Name="cbTables" Width="200" />
+        </StackPanel>
+        
+        <DataGrid Grid.Row="1">
+            <DataGrid x:Name="dataTable" IsReadOnly="true" CanUserAddRows="false" CanUserDeleteRows="false" AutoGenerateColumns="true"/>
+        </DataGrid>
+
+        <Grid Grid.Row="2" Margin="0,0,0,15">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="4*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Content="Add record" Name="btnAddRecord" Click="BtnAddRecord_Click"  Width="100"/>
+                    <Button Content="Delete record" Name="btnDeleteRecord" Click="BtnDeleteRecord_Click" Height="30" Width="100" Margin="20,0,20,0"/>
+                    <Button Content="Modify record" Name="btnModifyRecord" Click="BtnModifyRecord_Click" Width="100"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Button Content="Import records" Name="btnImportRecords" Click="BtnImportRecords_Click" Width="100"/>
+                    <Button Content="Export records" Name="btnExportRecords" Click="BtnExportRecords_Click" Height="30" Width="100" Margin="20,0,20,0"/>
+                    <Button Content="Filter records" Name="btnFilterRectods" Click="BtnFilterRectods_Click" Width="100"/>
+                </StackPanel>
+            </Grid>
+            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Button Content="Exit" Height="30" Width="100" Name="btnClose" Click="BtnClose_Click"/>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</Page>

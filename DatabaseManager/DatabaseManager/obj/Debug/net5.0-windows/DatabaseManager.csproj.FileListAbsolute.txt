@@ -6,10 +6,8 @@ F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\bin\Debug\net5.0-wi
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\bin\Debug\net5.0-windows\ref\DatabaseManager.dll
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\bin\Debug\net5.0-windows\DatabaseManager.pdb
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\DatabaseManager.csprojAssemblyReference.cache
-F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\MainWindow.g.cs
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\App.g.cs
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\DatabaseManager_MarkupCompile.cache
-F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\MainWindow.baml
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\DatabaseManager.g.resources
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\DatabaseManager.GeneratedMSBuildEditorConfig.editorconfig
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\DatabaseManager.AssemblyInfoInputs.cache
@@ -30,3 +28,10 @@ F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\bin\Debug\net5.0-wi
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\bin\Debug\net5.0-windows\Ubiety.Dns.Core.dll
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\bin\Debug\net5.0-windows\Zstandard.Net.dll
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\DatabaseManager.csproj.CopyComplete
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Windows\MainWindow.baml
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Pages\DataPage.g.cs
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Windows\MainWindow.g.cs
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Windows\WorkingWindow.g.cs
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\DatabaseManager_MarkupCompile.lref
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Pages\DataPage.baml
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Windows\WorkingWindow.baml

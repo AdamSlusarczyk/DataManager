@@ -1,21 +1,18 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DatabaseManager.Connection
 {
     static class Connection
     {
-        public static string ConnectionString { get; set; }
         public static string Message { get; private set; }
-        public static MySqlConnection connection;
-        public static bool TryConnect()
+        private static MySqlConnection connection;
+        private static string ConnectionString { get; set; }
+        public static bool TryConnect(string connectionString)
         {
             try
             {
+                ConnectionString = connectionString;
                 connection = new MySqlConnection(ConnectionString);
                 connection.Open();
                 return true;
@@ -25,6 +22,11 @@ namespace DatabaseManager.Connection
                 Message = "Error occured. Exception code:\n " + e.Message;
                 return false;
             }
+        }
+        internal static void Disconnect()
+        {
+            connection.Close();
+            ConnectionString = "";
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿using DatabaseManager.ViewModel;
+﻿using DatabaseManager.View;
+using DatabaseManager.View.Pages;
+using DatabaseManager.ViewModel;
 using System.Windows;
-
 
 namespace DatabaseManager
 {
@@ -19,15 +20,13 @@ namespace DatabaseManager
 
         private void BtnConnect_Click(object sender, RoutedEventArgs e)
         {
-            Connection.Connection.ConnectionString = txtAddress.Text;
-            if(Connection.Connection.TryConnect())
+            if(Connection.Connection.TryConnect(txtAddress.Text))
             {
-                MessageBox.Show("OK", "KK", MessageBoxButton.OK, MessageBoxImage.Information);
-                
+                this.Hide();
+                (new WorkingWindow(this) {Content = new DataPage()}).Show();
             }
             else
-                MessageBox.Show(Connection.Connection.Message, "Error", MessageBoxButton.OK,MessageBoxImage.Error);
-            
+                MessageBox.Show(Connection.Connection.Message, "Error", MessageBoxButton.OK,MessageBoxImage.Error);            
         }
     }
 }
