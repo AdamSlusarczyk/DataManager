@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\App.xaml
-31775042905
+52008174984
 1-1044942311
-71908520211
+10-1235079335
 201758536541
-View\Pages\DataPage.xaml;View\Windows\MainWindow.xaml;View\Windows\WorkingWindow.xaml;
+View\Pages\AddRecordPage.xaml;View\Pages\DataPage.xaml;View\Windows\MainWindow.xaml;View\Windows\SecondaryWindow.xaml;View\Windows\WorkingWindow.xaml;
 
 False
 

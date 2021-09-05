@@ -35,3 +35,7 @@ F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-wi
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\DatabaseManager_MarkupCompile.lref
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Pages\DataPage.baml
 F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Windows\WorkingWindow.baml
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Pages\AddRecordPage.g.cs
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Windows\SecondaryWindow.g.cs
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Pages\AddRecordPage.baml
+F:\Studia\Github\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\View\Windows\SecondaryWindow.baml

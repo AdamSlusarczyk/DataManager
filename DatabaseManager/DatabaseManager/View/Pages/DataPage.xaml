@@ -4,27 +4,34 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:DatabaseManager.View.Pages"
-      mc:Ignorable="d" 
+      mc:Ignorable="d" Name="this"
       Height="650" Width="900"
       Title="DataPage" Background="White">
 
-    <Grid Margin="20,20,20,20">
+    <Grid Margin="20,20,20,20" DataContext="{x:Reference Name=this}">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Select table:    "/>
-            <ComboBox Name="cbTables" Width="200" />
-        </StackPanel>
-        
-        <DataGrid Grid.Row="1">
-            <DataGrid x:Name="dataTable" IsReadOnly="true" CanUserAddRows="false" CanUserDeleteRows="false" AutoGenerateColumns="true"/>
-        </DataGrid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="2" Margin="0,0,0,15">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Select table:    "/>
+                <ComboBox Name="cbTables" Width="200" ItemsSource="{Binding VM.TableNames}" SelectionChanged="CbTables_SelectionChanged"/>
+            </StackPanel>
+
+            <Button Content="Refresh" HorizontalAlignment="Center" VerticalAlignment="Center" Name="btnRefresh" Click="BtnRefresh_Click" Width="100" Height="30" Grid.Column="1"/>
+        </Grid>
+
+        <DataGrid x:Name="dataTable" Margin="0,55,0,0" Grid.RowSpan="2" IsReadOnly="true" CanUserAddRows="false" CanUserDeleteRows="false" AutoGenerateColumns="true"/>
+
+        <Grid Grid.Row="1" Margin="0,444,0,15" Grid.ColumnSpan="2" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -53,6 +60,6 @@
                 <Button Content="Exit" Height="30" Width="100" Name="btnClose" Click="BtnClose_Click"/>
             </StackPanel>
         </Grid>
-        
+
     </Grid>
 </Page>

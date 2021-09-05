@@ -22,7 +22,7 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" >
             <TextBlock Text="Connection String:    "/>
-            <TextBox Name="txtAddress" Height="20" Width="350" Text="{Binding MainWindowVM.Address, Mode=TwoWay}"/>
+            <TextBox Name="txtAddress" Height="20" Width="350" Text="{Binding MainWindowVM.Address}"/>
         </StackPanel>
         
         <Button x:Name="btnConnect" Click="BtnConnect_Click" Content="_Connect" Height="25" Width="100" Grid.Row="2"/>
