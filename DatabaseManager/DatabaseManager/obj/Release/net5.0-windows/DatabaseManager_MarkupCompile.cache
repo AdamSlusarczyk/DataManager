@@ -4,11 +4,11 @@
 winexe
 C#
 .cs
-C:\Users\logn5\source\Git\DataManager\DatabaseManager\DatabaseManager\obj\Debug\net5.0-windows\
+C:\Users\logn5\source\Git\DataManager\DatabaseManager\DatabaseManager\obj\Release\net5.0-windows\
 DatabaseManager
 none
 false
-TRACE;DEBUG;NET;NET5_0;NETCOREAPP
+TRACE;RELEASE;NET;NET5_0;NETCOREAPP
 C:\Users\logn5\source\Git\DataManager\DatabaseManager\DatabaseManager\App.xaml
 52008174984
 1-1044942311

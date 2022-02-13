@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Images\main_bg.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

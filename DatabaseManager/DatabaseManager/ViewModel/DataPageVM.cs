@@ -1,8 +1,13 @@
-﻿using System;
+﻿using DatabaseManager.Model.Database;
+using DatabaseManager.View;
+using DatabaseManager.View.Windows;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace DatabaseManager.ViewModel
 {
@@ -24,26 +29,48 @@ namespace DatabaseManager.ViewModel
             TableNames = new ObservableCollection<string>();
             DataTable = new DataTable();
         }
-        internal void AddRecord()
+        internal void AddRecord() //TODO
         {
-            throw new NotImplementedException();
+            SecondaryWindow newWindow = new SecondaryWindow();
+
+
         }
 
-        internal void DeleteRecord(object selectedItem, out string message)
+        internal void DeleteRecord(string selectedTableName, object selectedRecord)
         {
-            throw new NotImplementedException();
+            var columnInfo = Connection.Connection.GetColumnsInfo(selectedTableName);
+            string message;
+            if (columnInfo.GetPrimaryKeysColumns().Count == 0)
+            { //TODO
+                message = "Could not delete record. Reason:\nSelected table does not have primary key.\nComing soon.";
+            }
+
+            else if (columnInfo.GetPrimaryKeysColumns().Count == 1)
+            {
+                if (Connection.Connection.TryDelete(selectedTableName, columnInfo.GetPrimaryKeysColumns()[0].ColumnName, ((DataRowView)selectedRecord).Row[0].ToString(), out message))
+                    MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                else
+                    MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            else
+            { //TODO
+                message = "Could not delete record. Reason:\nSelected table have multiple primary keys.\nComing soon.";
+            }
+
         }
 
-        internal void ModifyRecord(object selectedItem, out string message)
+        internal void ModifyRecord(string selectedItem, out string message) //TODO
         {
-            throw new NotImplementedException();
+            message = "";
         }
 
         internal void RefreshTableNames()
         {
             //refresh TableNames
-            TableNames.Clear(); 
-            foreach(string name in Connection.Connection.GetTableNames())
+            TableNames.Clear();
+            foreach (string name in Connection.Connection.GetTableNames())
                 TableNames.Add(name);
         }
 

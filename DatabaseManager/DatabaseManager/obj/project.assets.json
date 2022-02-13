@@ -847,11 +847,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Studia\\Github\\DataManager\\DatabaseManager\\DatabaseManager\\DatabaseManager.csproj",
+      "projectUniqueName": "C:\\Users\\logn5\\source\\Git\\DataManager\\DatabaseManager\\DatabaseManager\\DatabaseManager.csproj",
       "projectName": "DatabaseManager",
-      "projectPath": "F:\\Studia\\Github\\DataManager\\DatabaseManager\\DatabaseManager\\DatabaseManager.csproj",
+      "projectPath": "C:\\Users\\logn5\\source\\Git\\DataManager\\DatabaseManager\\DatabaseManager\\DatabaseManager.csproj",
       "packagesPath": "C:\\Users\\logn5\\.nuget\\packages\\",
-      "outputPath": "F:\\Studia\\Github\\DataManager\\DatabaseManager\\DatabaseManager\\obj\\",
+      "outputPath": "C:\\Users\\logn5\\source\\Git\\DataManager\\DatabaseManager\\DatabaseManager\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -910,7 +910,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.206\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.211\\RuntimeIdentifierGraph.json"
       }
     }
   }

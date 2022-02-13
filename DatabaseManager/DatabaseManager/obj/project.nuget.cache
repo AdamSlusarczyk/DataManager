@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "IKz0uHilVREvzU7n/+S19DcMPJz59FKnOjy3bJxT22LZVIrs7gZc81T3+TWAHU5lzgJ9Tvm1ddpFta9csU1M/A==",
+  "dgSpecHash": "zpa1hWC35yIhb+I4Ds6s0mRpEkqGsgNEfins53o5vOfG5VEfQtPXRrRTy5GqU2GYJKiwKgUg1mm+dK/V7OpVzQ==",
   "success": true,
-  "projectFilePath": "F:\\Studia\\Github\\DataManager\\DatabaseManager\\DatabaseManager\\DatabaseManager.csproj",
+  "projectFilePath": "C:\\Users\\logn5\\source\\Git\\DataManager\\DatabaseManager\\DatabaseManager\\DatabaseManager.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\logn5\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\logn5\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",
