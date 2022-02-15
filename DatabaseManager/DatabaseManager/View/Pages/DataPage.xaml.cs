@@ -1,4 +1,7 @@
-﻿using DatabaseManager.ViewModel;
+﻿using DatabaseManager.Model.Database;
+using DatabaseManager.View.Windows;
+using DatabaseManager.ViewModel;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -17,7 +20,7 @@ namespace DatabaseManager.View.Pages
             InitializeComponent();
         }
 
-        private void BtnAddRecord_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnAddRecord_Click(object sender, RoutedEventArgs e)
         {
             // new page, pass VM as argument
             // with VM.AddRecord add new record
@@ -28,40 +31,53 @@ namespace DatabaseManager.View.Pages
         {
             if (dataTable.SelectedItem != null)
             {
-                VM.DeleteRecord(dataTable.SelectedItem, out string message);
+                var result = MessageBox.Show("Do you really want to delete this record?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                    VM.DeleteRecord(cbTables.SelectedValue.ToString(), dataTable.SelectedItem);
             }
-                
             else
                 MessageBox.Show("Select record to delete.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void BtnModifyRecord_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnModifyRecord_Click(object sender, RoutedEventArgs e)
         {
             if (dataTable.SelectedItem != null)
             {
-                VM.ModifyRecord(dataTable.SelectedItem, out string message);
+                if (VM.CanModify(cbTables.SelectedItem.ToString(), out string message))
+                {
+                    var columnInfoCollection = Connection.Connection.GetColumnsInfo(cbTables.SelectedValue.ToString());
+                    var selectedTable = cbTables.SelectedValue.ToString();
+                    var selectedKeyName = columnInfoCollection.GetPrimaryKeysColumns()[0].FieldName;
+                    var temp = columnInfoCollection.GetPrimaryKeysColumns()[0].FieldName;
+                    var selectedKeyValue = (((DataRowView)dataTable.SelectedItem).Row.Field<int>(temp)).ToString();
+
+
+                    Connection.Connection.GetColumnValues(selectedTable, selectedKeyName, selectedKeyValue, columnInfoCollection);
+                    new SecondaryWindow { Content = new EditPage(cbTables.SelectedValue.ToString(), columnInfoCollection) }.ShowDialog();
+                }
+                else
+                    MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-                
             else
                 MessageBox.Show("Select record to modify.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        private void BtnImportRecords_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            
-        }
-
-        private void BtnExportRecords_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
+        private void BtnImportRecords_Click(object sender, RoutedEventArgs e)
+        {//TODO
 
         }
 
-        private void BtnFilterRectods_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
+        private void BtnExportRecords_Click(object sender, RoutedEventArgs e)
+        {//TODO
 
         }
 
-        private void BtnClose_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void BtnFilterRectods_Click(object sender, RoutedEventArgs e)
+        {//TODO
+
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
         }
@@ -71,11 +87,11 @@ namespace DatabaseManager.View.Pages
             string selectedTable = cbTables.Text;
             VM.RefreshTableNames();
             cbTables.Text = selectedTable;
-            if(!string.IsNullOrEmpty((string) cbTables.SelectedItem) && VM.TableNames.Contains(selectedTable))
+            if (!string.IsNullOrEmpty((string)cbTables.SelectedItem) && VM.TableNames.Contains(selectedTable))
             {
                 VM.RefreshData((string)cbTables.SelectedItem);
                 dataTable.ItemsSource = VM.DataTable.DefaultView;
-            }            
+            }
         }
 
         private void CbTables_SelectionChanged(object sender, SelectionChangedEventArgs e)

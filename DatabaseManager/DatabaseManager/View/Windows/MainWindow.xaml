@@ -24,7 +24,7 @@
             <TextBlock Text="Connection String:    "/>
             <TextBox Name="txtAddress" Height="20" Width="350" Text="{Binding MainWindowVM.Address}"/>
         </StackPanel>
-        
+
         <Button x:Name="btnConnect" Click="BtnConnect_Click" Content="_Connect" Height="25" Width="100" Grid.Row="2"/>
     </Grid>
 </Window>

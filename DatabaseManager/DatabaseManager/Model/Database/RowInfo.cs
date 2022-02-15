@@ -7,40 +7,40 @@ using System.Runtime.CompilerServices;
 
 namespace DatabaseManager.Model.Database
 {
-    class ColumnInfoCollection : INotifyPropertyChanged
+    public class RowInfo : INotifyPropertyChanged
     {
-        ObservableCollection<ColumnInfo> columnInfoList;
+        ObservableCollection<FieldInfo> fieldInfoList;
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public ColumnInfoCollection()
+        public RowInfo()
         {
-            columnInfoList = new();
+            fieldInfoList = new();
         }
 
-        public ObservableCollection<ColumnInfo> ColumnInfoList
+        public ObservableCollection<FieldInfo> FieldInfoList
         {
             get
             {
-                return columnInfoList;
+                return fieldInfoList;
             }
             set
             {
-                if (columnInfoList != value)
+                if (fieldInfoList != value)
                 {
-                    columnInfoList = value;
+                    fieldInfoList = value;
                     OnPropertyChanged("ColumnInfoList");
                 }
             }
         }
 
 
-        public List<ColumnInfo> GetPrimaryKeysColumns()
+        public List<FieldInfo> GetPrimaryKeysColumns()
         {
-            return (columnInfoList.Where(n => n.KeyType == KeyTypeEnum.PRIMARY)).ToList<ColumnInfo>();
+            return (fieldInfoList.Where(n => n.KeyType == KeyTypeEnum.PRIMARY)).ToList<FieldInfo>();
         }
     }
 }

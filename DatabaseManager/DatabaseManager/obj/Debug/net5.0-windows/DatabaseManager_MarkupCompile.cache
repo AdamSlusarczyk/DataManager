@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET5_0;NETCOREAPP
 C:\Users\logn5\source\Git\DataManager\DatabaseManager\DatabaseManager\App.xaml
-52008174984
+5-137363658
 1-1044942311
-121149950570
+13-216357520
 201758536541
-View\Pages\AddRecordPage.xaml;View\Pages\DataPage.xaml;View\Windows\MainWindow.xaml;View\Windows\SecondaryWindow.xaml;View\Windows\WorkingWindow.xaml;
+View\Pages\DataPage.xaml;View\Pages\EditPage.xaml;View\Windows\MainWindow.xaml;View\Windows\SecondaryWindow.xaml;View\Windows\WorkingWindow.xaml;
 
-True
+False
 

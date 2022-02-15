@@ -1,13 +1,10 @@
 ﻿using DatabaseManager.Model.Database;
-using DatabaseManager.View;
 using DatabaseManager.View.Windows;
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace DatabaseManager.ViewModel
 {
@@ -31,7 +28,7 @@ namespace DatabaseManager.ViewModel
         }
         internal void AddRecord() //TODO
         {
-            SecondaryWindow newWindow = new SecondaryWindow();
+            //SecondaryWindow newWindow = new SecondaryWindow();
 
 
         }
@@ -47,7 +44,7 @@ namespace DatabaseManager.ViewModel
 
             else if (columnInfo.GetPrimaryKeysColumns().Count == 1)
             {
-                if (Connection.Connection.TryDelete(selectedTableName, columnInfo.GetPrimaryKeysColumns()[0].ColumnName, ((DataRowView)selectedRecord).Row[0].ToString(), out message))
+                if (Connection.Connection.TryDelete(selectedTableName, columnInfo.GetPrimaryKeysColumns()[0].FieldName, ((DataRowView)selectedRecord).Row[0].ToString(), out message))
                     MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 else
@@ -61,9 +58,26 @@ namespace DatabaseManager.ViewModel
 
         }
 
-        internal void ModifyRecord(string selectedItem, out string message) //TODO
+        internal bool CanModify(string selectedTableName, out string message)
         {
-            message = "";
+            {
+                var columnInfo = Connection.Connection.GetColumnsInfo(selectedTableName);
+                if (columnInfo.GetPrimaryKeysColumns().Count == 0)
+                {//TODO
+                    message = "Cannot modify record. Reason:\nSelected table does not have primary key.\nComing soon.";
+                    return false;
+                }
+                else if (columnInfo.GetPrimaryKeysColumns().Count == 1)
+                {
+                    message = "";
+                    return true;
+                }
+                else
+                {//TODO
+                    message = "Cannot modify record. Reason:\nSelected table have multiple primary keys.\nComing soon.";
+                    return false;
+                }
+            }
         }
 
         internal void RefreshTableNames()

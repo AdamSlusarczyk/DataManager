@@ -7,10 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\Pages\AddRecordPage.xaml.cs">
+    <Compile Update="View\Pages\DataPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\Pages\DataPage.xaml.cs">
+    <Compile Update="View\Pages\EditPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\Windows\SecondaryWindow.xaml.cs">
@@ -21,10 +21,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="View\Pages\AddRecordPage.xaml">
+    <Page Update="View\Pages\DataPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Pages\DataPage.xaml">
+    <Page Update="View\Pages\EditPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Windows\MainWindow.xaml">

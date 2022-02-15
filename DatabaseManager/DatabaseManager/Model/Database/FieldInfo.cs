@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DatabaseManager.Model.Database
 {
-    class ColumnInfo : INotifyPropertyChanged
+    public class FieldInfo : INotifyPropertyChanged
     {
-        string columnName;
-        string columnType;
+        string fieldName;
+        string fieldType;
+        string fieldValue;
         bool nullable;
         KeyTypeEnum keyType;
         string defaultValue;
@@ -24,28 +20,40 @@ namespace DatabaseManager.Model.Database
         }
 
 
-        public string ColumnName
+        public string FieldName
         {
             set
             {
-                columnName = value;
+                fieldName = value;
                 OnPropertyChanged("ColumnName");
             }
             get
             {
-                return columnName;
+                return fieldName;
             }
         }
-        public string ColumnType
+        public string FieldType
         {
             set
             {
-                columnType = value;
+                fieldType = value;
                 OnPropertyChanged("ColumnType");
             }
             get
             {
-                return columnType;
+                return fieldType;
+            }
+        }
+        public string FieldValue
+        {
+            set
+            {
+                fieldValue = value;
+                OnPropertyChanged("ColumnValue");
+            }
+            get
+            {
+                return fieldValue;
             }
         }
         public bool Nullable
