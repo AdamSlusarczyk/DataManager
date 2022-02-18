@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace DatabaseManager.Model.Database
@@ -93,6 +94,20 @@ namespace DatabaseManager.Model.Database
             }
         }
 
+        public string GetDefaultValHint
+        {
+            set
+            {
+
+            }
+            get
+            {
+                if (String.IsNullOrEmpty(defaultValue))
+                    return "Field does not have default value.";
+                else
+                    return "Fields default value is set to: " + DefaultValue;
+            }
+        }
     }
 
     public enum KeyTypeEnum

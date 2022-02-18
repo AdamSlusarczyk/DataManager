@@ -65,6 +65,7 @@ namespace DatabaseManager.View.Pages
             Grid.SetColumn(newTextBox_Value, 2);
             Grid.SetRow(newTextBox_Value, rowNo);
             newTextBox_Value.SetBinding(TextBox.TextProperty, new Binding("FieldValue") { Source = columnInfo });
+            newTextBox_Value.SetBinding(TextBox.ToolTipProperty, new Binding("GetDefaultValHint") { Source = columnInfo });
 
             CheckBox newCheckBox_Nullable = new() { HorizontalAlignment = HorizontalAlignment.Center, VerticalAlignment = VerticalAlignment.Center, IsEnabled = false };
             Grid.SetColumn(newCheckBox_Nullable, 3);

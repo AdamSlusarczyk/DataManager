@@ -1,6 +1,7 @@
 ﻿using DatabaseManager.Model.Database;
 using DatabaseManager.View.Windows;
 using DatabaseManager.ViewModel;
+using System;
 using System.Data;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,9 +23,17 @@ namespace DatabaseManager.View.Pages
 
         private void BtnAddRecord_Click(object sender, RoutedEventArgs e)
         {
-            // new page, pass VM as argument
-            // with VM.AddRecord add new record
-            VM.AddRecord();
+            if (cbTables.SelectedItem != null)
+            {
+                var columnsInfo = Connection.Connection.GetFieldInfo(cbTables.SelectedValue.ToString(), out string message);
+                if(columnsInfo.FieldInfoList.Count == 0)
+                    MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                    new SecondaryWindow { Content = new EditPage(cbTables.SelectedValue.ToString(), columnsInfo)}.ShowDialog();
+            }
+                
+            else
+                MessageBox.Show("Select table you want to add data to.", "", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         private void BtnDeleteRecord_Click(object sender, RoutedEventArgs e)
@@ -45,15 +54,23 @@ namespace DatabaseManager.View.Pages
             {
                 if (VM.CanModify(cbTables.SelectedItem.ToString(), out string message))
                 {
-                    var columnInfoCollection = Connection.Connection.GetColumnsInfo(cbTables.SelectedValue.ToString());
-                    var selectedTable = cbTables.SelectedValue.ToString();
-                    var selectedKeyName = columnInfoCollection.GetPrimaryKeysColumns()[0].FieldName;
-                    var temp = columnInfoCollection.GetPrimaryKeysColumns()[0].FieldName;
-                    var selectedKeyValue = (((DataRowView)dataTable.SelectedItem).Row.Field<int>(temp)).ToString();
+                    var columnInfoCollection = Connection.Connection.GetFieldInfo(cbTables.SelectedValue.ToString(), out message);
+                    if(columnInfoCollection.FieldInfoList.Count == 0)
+                        MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    else
+                    {
+                        var selectedTable = cbTables.SelectedValue.ToString();
+                        var selectedKeyName = columnInfoCollection.GetPrimaryKeysColumns()[0].FieldName;
+                        var temp = columnInfoCollection.GetPrimaryKeysColumns()[0].FieldName;
+                        var selectedKeyValue = (((DataRowView)dataTable.SelectedItem).Row.Field<int>(temp)).ToString();
 
 
-                    Connection.Connection.GetColumnValues(selectedTable, selectedKeyName, selectedKeyValue, columnInfoCollection);
-                    new SecondaryWindow { Content = new EditPage(cbTables.SelectedValue.ToString(), columnInfoCollection) }.ShowDialog();
+                        var result = Connection.Connection.GetFieldValues(selectedTable, selectedKeyName, selectedKeyValue, columnInfoCollection, out message);
+                        if (result)
+                            new SecondaryWindow { Content = new EditPage(cbTables.SelectedValue.ToString(), columnInfoCollection) }.ShowDialog();
+                        else
+                            MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                     MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -78,20 +78,39 @@ namespace DatabaseManager.ViewModel
 
                 if (modifyResult)
                 {
-                    MessageBox.Show("Row modified successfuly.", "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Information);
                     return true;
                 }             
                 else
                 {
-                    MessageBox.Show("Could not modify the row.", "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 }                  
             }    
         }
 
         internal bool InsertRow()
-        {//TODO
-            throw new NotImplementedException();
+        {
+            if (!CheckAndFillWithDefaults(out string message))
+            {
+                MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            else
+            {
+                bool insertResult = Connection.Connection.Insert(tableName, rowInfo, out message);
+                
+                if (insertResult)
+                {
+                    MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show(message, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
         }
     }
 }

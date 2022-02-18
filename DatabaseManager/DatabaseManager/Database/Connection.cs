@@ -34,27 +34,45 @@ namespace DatabaseManager.Connection
             ConnectionString = "";
         }
 
-        public static ObservableCollection<string> GetTableNames()
+        public static ObservableCollection<string> GetTableNames(out string outMessage)
         {
             MySqlCommand command = new("SHOW Tables", connection);
-            MySqlDataReader dataReader = command.ExecuteReader();
             ObservableCollection<string> result = new();
+            try
+            {
+                MySqlDataReader dataReader = command.ExecuteReader();
 
-            while (dataReader.Read())
-                result.Add((string)dataReader.GetValue(0));
+                while (dataReader.Read())
+                    result.Add((string)dataReader.GetValue(0));
 
-            dataReader.Close();
-            return result;
+                dataReader.Close();
+                outMessage = "OK";
+                return result;
+            }
+            catch(Exception e)
+            {
+                outMessage = "Could not load data. Reason:\n" + e.Message;
+                return result;
+            }
         }
 
-        internal static DataTable GetData(string selectedTable)
+        internal static DataTable GetData(string selectedTable, out string outMessage)
         {
             DataTable result = new();
             MySqlCommand command = new("SELECT * FROM " + selectedTable + ";", connection);
-            command.ExecuteNonQuery();
-            MySqlDataAdapter adapter = new(command);
-            adapter.Fill(result);
-            return result;
+            try
+            {
+                command.ExecuteNonQuery();
+                MySqlDataAdapter adapter = new(command);
+                adapter.Fill(result);
+                outMessage = "OK";
+                return result;
+            }
+            catch(Exception e)
+            {
+                outMessage = "Could not load data. Reason:\n" + e.Message;
+                return result;
+            }
         }
 
         internal static bool TryDeleteCascade()
@@ -72,11 +90,19 @@ namespace DatabaseManager.Connection
             }
             else
             {
-                MySqlCommand command = new("DELETE FROM " + tableName + " WHERE " + tablePrimaryKeyName + " = " + rowID + ";", connection);
-                var result = command.ExecuteReader();
-                outMessage = "Operation complete. Affected rows: " + result.RecordsAffected;
-                result.Close();
-                return true;
+                try
+                {
+                    MySqlCommand command = new("DELETE FROM " + tableName + " WHERE " + tablePrimaryKeyName + " = " + rowID + ";", connection);
+                    var result = command.ExecuteReader();
+                    outMessage = "Operation complete. Affected rows: " + result.RecordsAffected;
+                    result.Close();
+                    return true;
+                }
+                catch(Exception e)
+                {
+                    outMessage = "Could not delete data. Reason:\n" + e.Message;
+                    return false;
+                }
             }
         }
 
@@ -98,62 +124,133 @@ namespace DatabaseManager.Connection
             cmdText += " WHERE " + tablePrimaryKeyName + " = " + primaryKeyValue + ";" ;
 
             MySqlCommand command = new(cmdText, connection);
-            int rowsAffected = command.ExecuteNonQuery();
-            
-            if(rowsAffected == 1)
+            try
             {
-                outMessage = "Row updated.";
-                return true;
+                int rowsAffected = command.ExecuteNonQuery();
+
+                if (rowsAffected == 1)
+                {
+                    outMessage = "Data updated.";
+                    return true;
+                }
+                else
+                {
+                    outMessage = "Could not modify data.";
+                    return false;
+                }
             }
-            else
+            catch(Exception e)
             {
-                outMessage = "Could not modify the row.";
+                outMessage = "Could not modify data. Reason:\n" + e.Message;
                 return false;
             }
         }
 
-        public static RowInfo GetColumnsInfo(string selectedTable)
+        internal static bool Insert(string tableName, RowInfo rowInfo, out string outMessage)
         {
-            RowInfo columnInfoCollection = new();
-            MySqlCommand command = new("SHOW columns FROM " + selectedTable, connection);
-            MySqlDataReader result = command.ExecuteReader();
-            FieldInfo newElement;
-
-            while (result.Read())
+            string cmdText = "INSERT INTO " + tableName + " (";
+            for (int i = 0; i < rowInfo.FieldInfoList.Count; i++)
             {
-                newElement = new();
-                newElement.FieldName = (string)result.GetValue(0);
-                newElement.FieldType = (string)result.GetValue(1);
-                if (result.GetString(2) == "YES")
-                    newElement.Nullable = true;
-                else
-                    newElement.Nullable = false;
-                if ((string)result.GetValue(3) == "PRI")
-                    newElement.KeyType = KeyTypeEnum.PRIMARY;
-                else if ((string)result.GetValue(3) == "MUL")
-                    newElement.KeyType = KeyTypeEnum.FOREIGN;
-                else
-                    newElement.KeyType = KeyTypeEnum.NONE;
+                cmdText += rowInfo.FieldInfoList[i].FieldName;
 
-                columnInfoCollection.FieldInfoList.Add(newElement);
+                if (i < rowInfo.FieldInfoList.Count - 1)
+                    cmdText += ", ";
             }
-            result.Close();
-            return columnInfoCollection;
-        }
+            cmdText += ") VALUES (";
 
-        public static void GetColumnValues(string selectedTable, string selectedKeyName, string selectedKeyValue, RowInfo columnInfoCollection)
-        {
-            MySqlCommand command = new("SELECT * FROM " + selectedTable + " WHERE " + selectedKeyName + " = " + selectedKeyValue + ";", connection);
-            var result = command.ExecuteReader();
-            while(result.Read())
+            for (int i = 0; i < rowInfo.FieldInfoList.Count; i++)
             {
-                for(int fieldNo = 0; fieldNo < result.FieldCount; fieldNo++)
+                cmdText += "'" + rowInfo.FieldInfoList[i].FieldValue + "'";
+
+                if (i < rowInfo.FieldInfoList.Count - 1)
+                    cmdText += ", ";
+            }
+            cmdText += ");";
+
+            MySqlCommand command = new(cmdText, connection);
+            try
+            {
+                int rowsAffected = command.ExecuteNonQuery();
+                if (rowsAffected == 1)
                 {
-                    if (!String.IsNullOrEmpty(result.GetString(0)))
-                        columnInfoCollection.FieldInfoList[fieldNo].FieldValue = (result.GetString(fieldNo));
+                    outMessage = "Data inserted successfully";
+                    return true;
+                }
+
+                else
+                {
+                    outMessage = "Could not insert data";
+                    return false;
                 }
             }
-            result.Close();
+            catch(Exception e)
+            {
+                outMessage = "Could not insert data. Reason: \n" + e.Message;
+                return false;
+            }    
+        }
+
+        public static RowInfo GetFieldInfo(string selectedTable, out string outMessage)
+        {
+            RowInfo fieldInfoCollection = new();
+            MySqlCommand command = new("SHOW columns FROM " + selectedTable, connection);
+            try
+            {
+                MySqlDataReader result = command.ExecuteReader();
+                FieldInfo newElement;
+
+                while (result.Read())
+                {
+                    newElement = new();
+                    newElement.FieldName = (string)result.GetValue(0);
+                    newElement.FieldType = (string)result.GetValue(1);
+                    if (result.GetString(2) == "YES")
+                        newElement.Nullable = true;
+                    else
+                        newElement.Nullable = false;
+                    if ((string)result.GetValue(3) == "PRI")
+                        newElement.KeyType = KeyTypeEnum.PRIMARY;
+                    else if ((string)result.GetValue(3) == "MUL")
+                        newElement.KeyType = KeyTypeEnum.FOREIGN;
+                    else
+                        newElement.KeyType = KeyTypeEnum.NONE;
+
+                    fieldInfoCollection.FieldInfoList.Add(newElement);
+                }
+                result.Close();
+                outMessage = "OK";
+                return fieldInfoCollection;
+            }
+            catch(Exception e)
+            {
+                outMessage = "Could not load data. Reason:\n" + e.Message;
+                return fieldInfoCollection;
+            }
+        }
+
+        public static bool GetFieldValues(string selectedTable, string selectedKeyName, string selectedKeyValue, RowInfo fieldInfoCollection, out string outMessage)
+        {
+            MySqlCommand command = new("SELECT * FROM " + selectedTable + " WHERE " + selectedKeyName + " = " + selectedKeyValue + ";", connection);
+            try
+            {
+                var result = command.ExecuteReader();
+                while (result.Read())
+                {
+                    for (int fieldNo = 0; fieldNo < result.FieldCount; fieldNo++)
+                    {
+                        if (!result.IsDBNull(fieldNo))
+                            fieldInfoCollection.FieldInfoList[fieldNo].FieldValue = (result.GetString(fieldNo));
+                    }
+                }
+                result.Close();
+                outMessage = "OK";
+                return true;
+            }
+            catch(Exception e)
+            {
+                outMessage = "Could not load data. Reason:\n" + e.Message;
+                return false;
+            }
         }
     }
 }
